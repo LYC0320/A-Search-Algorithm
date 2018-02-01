@@ -1,0 +1,30 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(298,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  TutorialApplication.cpp
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(32): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(80): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(80): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(80): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(86): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(86): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(86): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\tutorialapplication.cpp(100): warning C4101: 'i' : unreferenced local variable
+  selection_rectangle.cpp
+  map_path_finding.cpp
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map_path_finding.cpp(18): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map_path_finding.cpp(19): warning C4244: '=' : conversion from 'double' to 'int', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map_path_finding.cpp(91): warning C4101: 'h' : unreferenced local variable
+  map.cpp
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(38): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(38): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(41): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(41): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(55): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(55): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(58): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(58): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+c:\users\cxl\downloads\3d game programing\3dgp_201709_pathfinding_template_package\programs\3dgp_201709_04_ex_path_finding_template\source\map.cpp(58): warning C4244: 'argument' : conversion from 'double' to 'const Ogre::Real', possible loss of data
+  BasicTools.cpp
+  BaseApplication.cpp
+  Generating Code...
+  demo_hello.vcxproj -> C:\Users\cxl\Downloads\3D game programing\3DGP_201709_PathFinding_Template_Package\programs\3DGP_201709_04_Ex_Path_Finding_Template\bin\Debug\demo_hello.exe
