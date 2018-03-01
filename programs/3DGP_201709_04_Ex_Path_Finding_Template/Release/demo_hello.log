@@ -1,5 +1,6 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(298,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
 C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+<<<<<<< HEAD
   TutorialApplication.cpp
 source\TutorialApplication.cpp(41): warning C4305: 'argument' : truncation from 'double' to 'const Ogre::Real'
 source\TutorialApplication.cpp(89): warning C4305: 'argument' : truncation from 'double' to 'float'
@@ -21,4 +22,6 @@ source\TutorialApplication.cpp(376): warning C4018: '<' : signed/unsigned mismat
 source\TutorialApplication.cpp(408): warning C4305: 'initializing' : truncation from 'double' to 'float'
   Generating code
   Finished generating code
+=======
+>>>>>>> master
   demo_hello.vcxproj -> C:\Users\cxl\Downloads\3D game programing\3DGP_201709_PathFinding_Template_Package\programs\3DGP_201709_04_Ex_Path_Finding_Template\bin\Release\demo_hello.exe
