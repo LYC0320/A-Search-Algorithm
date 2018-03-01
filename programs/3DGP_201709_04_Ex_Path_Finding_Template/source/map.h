@@ -52,17 +52,21 @@ protected:
      SceneNode **mSceneNodes_Path;
     Entity **mEntitys_Path;
     //
-    MapNode *mStartNode, *mGoalNode;
+    
+	MapNode myStart, myGoal;
     MapNode mMapNodes[MAX_NX][MAX_NZ];
     //
-    std::vector<Vector3> mPathPoints;
+	//std::vector<Vector3> mPathPoints;
     //
     std::vector<MapNode*> mOpenList;
     std::vector<MapNode*> mClosedList;
+	std::vector<MapNode*> pathNode;
 
 public:
     MAP( );
-    
+	std::vector<Vector3> mPathPoints;
+	int test;
+	MapNode *mStartNode, *mGoalNode;
     void setDimension( int nx, int nz );
     void generateMap( SceneManager* mSceneMgr );
     bool performPathFinding( const Vector3 &p, const Vector3 &q );

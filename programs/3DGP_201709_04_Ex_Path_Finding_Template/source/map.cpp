@@ -30,7 +30,9 @@ void MAP::reset( )
 void MAP::generateMap( SceneManager* mSceneMgr )
 {
     mSceneNodes = new SceneNode*[mNX*mNZ];
+	mSceneNodes_Path = new SceneNode*[mNX*mNZ];
     mEntitys = new Entity*[mNX*mNZ];
+	mEntitys_Path = new Entity*[mNX*mNZ];
     Vector3 w = mMaxSpace - mMinSpace;
     double dx = w.x/(mNX-1);
     double dz = w.z/(mNZ-1);
@@ -39,6 +41,7 @@ void MAP::generateMap( SceneManager* mSceneMgr )
 
     float size = 0.5;
     Vector3 scales = size*Vector3(0.35, 1.0, 0.35);
+	Vector3 ballScales = size*Vector3(1.0, 1.0, 1.0)*0.6;
     float translate_y = -size*40;
     for ( int j = 0; j < mNZ; ++j ) 
 	{
@@ -51,8 +54,7 @@ void MAP::generateMap( SceneManager* mSceneMgr )
             z = j*dz + mMinSpace.z;
             //
 
-			//if (i == 0 || j == 0 || i == (mNX - 1) || j == (mNZ - 1))
-			//{
+			
 				mMapNodes[i][j].flgCanMove = false;
 				mMapNodes[i][j].ix = i;
 				mMapNodes[i][j].iz = j;
@@ -63,44 +65,40 @@ void MAP::generateMap( SceneManager* mSceneMgr )
 				mSceneNodes[index]->setPosition(Vector3(x, y, z));
 				mSceneNodes[index]->scale(scales.x, scales.y, scales.z);
 				mSceneNodes[index]->translate(0.0, translate_y, 0.0);
+
+				mSceneNodes_Path[index] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+				mSceneNodes_Path[index]->setPosition(Vector3(x, y, z));
+				mSceneNodes_Path[index]->scale(ballScales.x, ballScales.y, ballScales.z);
+				//mSceneNodes_Path[index]->translate(0.0, translate_y, 0.0);
+				
+				
+				String nameBall;
+				genNameUsingIndex("ball", index, nameBall);
+
+
+				mEntitys_Path[index] = mSceneMgr->createEntity(nameBall,Ogre::SceneManager::PT_SPHERE);
+				mEntitys_Path[index]->setMaterialName("Examples/gray");
+				mSceneNodes_Path[index]->attachObject(mEntitys_Path[index]);
+
+				mSceneNodes_Path[index]->setVisible(false);
+
 				String name;
 				genNameUsingIndex("br", index, name);
 
+				
 				mEntitys[index] = mSceneMgr
 					->createEntity(name, "cube.mesh");
 				mEntitys[index]->setMaterialName("Examples/SphereMappedRustySteel");
 				mSceneNodes[index]->attachObject(mEntitys[index]);
-			//}
-			/*
-			else
-			{
-				mMapNodes[i][j].flgCanMove = true;
-				mMapNodes[i][j].ix = i;
-				mMapNodes[i][j].iz = j;
-
-				mMapNodes[i][j].position = Vector3(x, 0.0, z);
-				//
-				mSceneNodes[index] = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-				mSceneNodes[index]->setPosition(Vector3(x, y, z));
-				mSceneNodes[index]->scale(scales.x, scales.y, scales.z);
-				mSceneNodes[index]->translate(0.0, translate_y, 0.0);
-				String name;
-				genNameUsingIndex("br", index, name);
-
-				mEntitys[index] = mSceneMgr
-					->createEntity(name, "cube.mesh");
-				mEntitys[index]->setMaterialName("Examples/TerrRock");
-				mSceneNodes[index]->attachObject(mEntitys[index]);
 				
-			}
-			*/
-        
         }
 
          
     }
     //
     
+
+	
     for ( int j = 1; j < mNZ-1; ++j ) 
 	{
         for ( int i = 1; i < mNX-1; ++i ) 

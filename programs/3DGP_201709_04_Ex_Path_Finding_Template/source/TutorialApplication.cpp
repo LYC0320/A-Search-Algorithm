@@ -17,6 +17,14 @@ using namespace Ogre;
 using namespace std;
 BasicTutorial_00::BasicTutorial_00(void) {}
 
+int count1 = 0;
+int conerCount = 0;
+float distance1;
+float distance2;
+
+
+
+
 void BasicTutorial_00::createCamera(void)
 {
 	mCameraMap = mSceneMgr->createCamera("MapCamera");
@@ -117,6 +125,7 @@ void BasicTutorial_00::createScene(void)
     mRobotNode->attachObject( mRobotEntity );
     //
     mRobotNode->scale(1.0, 1.0, 1.0 );
+	mRobotNode->setPosition(Vector3(-13.1579, 0, -13.1579));
     
     //mAnimationState = mRobotEntity->getAnimationState("Idle");
 	//	mAnimationState->setEnabled(true);
@@ -146,6 +155,8 @@ void BasicTutorial_00::createScene(void)
 	SceneNode *fnode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
 	fnode->attachObject(floorEnt);
+
+	floorG = floor;
 
 }
 bool BasicTutorial_00::mouseMoved( const OIS::MouseEvent &arg )
@@ -186,6 +197,19 @@ void BasicTutorial_00::singleClickSelect ( const OIS::MouseEvent &arg, OIS::Mous
 //
 void BasicTutorial_00::computeGoalPosition( )
 {
+
+
+	Ray mRay = mTrayMgr->getCursorRay(mCamera);
+
+
+	Vector3 clickPositin = mRay.getPoint(mRay.intersects(floorG).second);
+	//cout << clickPositin << endl;
+
+	
+	bool result = mMap->performPathFinding(mRobotNode->getPosition(), clickPositin);
+	
+
+	
     //mGoalPosition = point;
 }
 
@@ -222,8 +246,13 @@ bool BasicTutorial_00::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButto
 {
     if (id == OIS::MB_Left) {
 		
-		bool temp = mMap->performPathFinding(Vector3(1, 1, 1), Vector3(2, 2, 2));
-        
+		computeGoalPosition();
+
+		if (mMap->mGoalNode->flgCanMove) 
+		{
+			updateDirection();
+		}
+
 		return BaseApplication::mouseReleased( arg, id );
 	}
 
@@ -238,14 +267,151 @@ bool BasicTutorial_00::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButto
 //
 void BasicTutorial_00::controlRobotMovingAlongPath( const FrameEvent &evt )
 {
-    if ( mPathPoints.size() == 0 ) return;
+	
+	Real speed = 2;
+	Real t = evt.timeSinceLastFrame;
+	
+
+	if (mPathPoints.size() == 0)
+	{
+		mAnimationState = mRobotEntity->getAnimationState("Idle");
+		mAnimationState->setEnabled(true);
+		mAnimationState->setLoop(true);
+		mAnimationState->addTime(t);
+		return;
+	}
+
+
+	if (distance1 > 0 && count1 < direction.size())
+	{
+		Vector3 walk = direction[count1] * speed * t;
+		float walkLength = sqrt(walk.x * walk.x + walk.y * walk.y + walk.z * walk.z);
+		mAnimationState = mRobotEntity->getAnimationState("Walk");
+		mRobotNode->translate(walk);
+		mAnimationState->setEnabled(true);
+		mAnimationState->setLoop(true);
+		mAnimationState->addTime(t);
+
+		distance1 = distance1 - walkLength;
+
+		
+	}
+	else if (count1 < direction.size())
+	{
+		distance1 = sqrt(direction[0].x * direction[0].x + direction[0].y * direction[0].y + direction[0].z * direction[0].z);
+		count1++;
+		
+		
+	}
+	else
+	{
+		mRobotNode->translate((mGoalPosition - mRobotNode->getPosition())*0.1);
+		mAnimationState = mRobotEntity->getAnimationState("Idle");
+		mAnimationState->setEnabled(true);
+		mAnimationState->setLoop(true);
+		mAnimationState->addTime(t);
+
+	}
+
+
+	if (distance2 > 0 && conerCount < cornerTarget.size())
+	{
+		Vector3 walk = direction[count1] * speed * t;
+		float walkLength = sqrt(walk.x * walk.x + walk.y * walk.y + walk.z * walk.z);
+
+		robotRotation();
+		
+		distance2 = distance2 - walkLength;
+
+		
+	}
+	else if (conerCount < cornerTarget.size())
+	{
+		conerCount++;
+		distance2 = computeDistance(cornerTarget[conerCount - 1], cornerTarget[conerCount]);
+
+
+	}
+	else
+	{
+		//Vector3 finalTarget = Vector3((mPathPoints[mPathPoints.size() - 1] + direction[direction.size() - 1]).x, mRobotNode->getPosition().y, (mPathPoints[mPathPoints.size() - 1] + direction[direction.size() - 1]).z);
+
+		//mRobotNode->lookAt(finalTarget, Node::TS_WORLD);
+	}
 
 }
+
+
+float BasicTutorial_00::computeDistance(Vector3 p, Vector3 q)
+{
+	return(sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2) + pow(p.z - q.z, 2)));
+}
+	
+
 
 bool BasicTutorial_00::frameStarted(const FrameEvent &evt)
 {
     controlRobotMovingAlongPath( evt );
 	return BaseApplication::frameStarted(evt);
+}
+
+void BasicTutorial_00::updateDirection()
+{
+	mPathPoints = mMap->getPathPoints();
+
+	direction.clear();
+	cornerTarget.clear();
+	count1 = 0;
+	conerCount = 0;
+
+
+	
+	mGoalPosition = mPathPoints[mPathPoints.size() - 1];
+
+	for (int i = 0; i < mPathPoints.size() - 1; i++)
+	{
+		direction.push_back(mPathPoints[i + 1] - mPathPoints[i]);
+	}
+
+	for (int i = 0; i < mPathPoints.size() - 1; i++)
+	{
+		if (computeDistance(direction[i], direction[i + 1]) > 5)
+		{
+			cornerTarget.push_back(mPathPoints[i + 1]);
+			//cout << mPathPoints[i+1] << endl;
+		}
+
+		
+	}
+
+	cornerTarget.push_back(mPathPoints[mPathPoints.size() - 1]);
+
+	//cout << direction.size();
+	//cout << cornerTarget.size() << endl;
+
+	distance1 = sqrt(direction[0].x * direction[0].x + direction[0].y * direction[0].y + direction[0].z * direction[0].z);
+	distance2 = computeDistance(mMap->mStartNode->position, cornerTarget[0]);
+}
+
+void BasicTutorial_00::robotRotation()
+{
+
+
+		Quaternion q0 = mRobotNode->getOrientation();
+
+		Vector3 target = cornerTarget[conerCount];
+
+		target.y = mRobotNode->getPosition().y;
+		mRobotNode->lookAt(target, Node::TS_WORLD);
+		mRobotNode->yaw(Degree(90));
+		Quaternion q1 = mRobotNode->getOrientation();
+		float w = 0.9;
+
+		mRobotNode->setOrientation(w*q0 + (1 - w)*q1);
+	
+
+	
+
 }
 
 int main(int argc, char *argv[]) {

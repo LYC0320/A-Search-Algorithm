@@ -25,7 +25,10 @@ class BasicTutorial_00 : public BaseApplication
 {
 private:
     
-    Vector3 mStartPosition, mGoalPosition;
+	Vector3 mStartPosition, mGoalPosition;
+	Plane floorG;
+	
+	std::vector<Vector3>direction;
 
 	SceneNode *mRobotNode;
 	Entity *mRobotEntity;
@@ -39,6 +42,7 @@ private:
 	SceneNode *mLightSceneNode;
 
 	void computeGoalPosition( );
+	std::vector<Vector3>cornerTarget;
 
 Camera *mCameraMap;
 
@@ -46,6 +50,9 @@ MAP *mMap;
 
 virtual void createCamera();
 virtual void createViewports();
+void updateDirection();
+float computeDistance(Vector3 p, Vector3 q);
+void robotRotation();
 
 void volumeSelect( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 void singleClickSelect ( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
@@ -59,6 +66,7 @@ void controlRobotMovingAlongPath( const FrameEvent &evt );
 public:
 	BasicTutorial_00(void);
 	virtual void createScene(void);
+	
 };
  
 #endif // #ifndef __BasicTutorial_00_h_
